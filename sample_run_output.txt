@@ -1,0 +1,68 @@
+====================================================================
+           STUDENT PERFORMANCE ANALYTICS SYSTEM
+====================================================================
+
+Students analysed: 20
+
+STUDENT RESULTS
+Student_ID           Name             Department  Total_Marks  Average_Marks Grade Result
+      S001   Aarav Sharma   Computer Engineering          343          85.75     A   Pass
+      S002   Ananya Patel Information Technology          322          80.50     B   Pass
+      S003 Rohan Deshmukh   Computer Engineering          253          63.25     C   Pass
+      S004  Isha Kulkarni            Electronics          368          92.00     A   Pass
+      S005   Vivaan Joshi Information Technology          205          51.25     D   Fail
+      S006     Meera Shah   Computer Engineering          331          82.75     B   Pass
+      S007    Aditya More             Mechanical          169          42.25     D   Fail
+      S008      Sara Khan            Electronics          312          78.00     B   Pass
+      S009    Arjun Patil             Mechanical          270          67.50     C   Pass
+      S010      Diya Nair Information Technology          368          92.00     A   Pass
+      S011    Kabir Singh   Computer Engineering          204          51.00     D   Fail
+      S012      Aditi Rao            Electronics          341          85.25     A   Pass
+      S013  Reyansh Gupta             Mechanical          278          69.50     C   Pass
+      S014     Myra Joshi Information Technology          260          65.00     C   Pass
+      S015   Ishaan Verma   Computer Engineering          371          92.75     A   Pass
+      S016    Kiara Mehta            Electronics          218          54.50     D   Fail
+      S017   Atharv Pawar             Mechanical          144          36.00     F   Fail
+      S018     Navya Iyer Information Technology          332          83.00     B   Pass
+      S019     Dhruv Sane   Computer Engineering          276          69.00     C   Pass
+      S020  Tara Banerjee            Electronics          358          89.50     A   Pass
+
+CLASS SUMMARY
+Class average:       71.54/100
+Highest average:     92.75/100
+Lowest average:      36.00/100
+Students passed:     15
+Students failed:     5
+Top performer(s):   Ishaan Verma
+
+SUBJECT-WISE SUMMARY
+    Subject  Average  Highest  Lowest
+     Python    68.90       95      28
+Mathematics    71.20       94      38
+   Database    70.55       95      33
+         AI    75.50       96      45
+
+DEPARTMENT-WISE AVERAGE
+Department
+Electronics               79.85
+Information Technology    74.35
+Computer Engineering      74.08
+Mechanical                53.81
+
+OUTPUT FILES
+Detailed results: /mnt/data/student-performance-analytics/output/student_results.csv
+Subject summary:  /mnt/data/student-performance-analytics/output/subject_summary.csv
+
+Analysis completed successfully.
+
+ERRORS:
+Spreadsheet runtime warmup failed during python startup
+Traceback (most recent call last):
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/patches/warm_spreadsheet_runtime_on_startup.py", line 26, in warm_spreadsheet_runtime_on_startup
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/spreadsheet_warmup.py", line 785, in warm_spreadsheet_runtime
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/spreadsheet_warmup.py", line 718, in _warm_feature_flows
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/spreadsheet_warmup.py", line 509, in _warm_drawing_and_image_flows
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/generated/interface/models.py", line 32861, in bring_to_front
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/rpc/remote.py", line 764, in __call__
+  File "/tmp/tmp.QlpUkOUI9D/artifact_tool_v2-2.8.66/artifact_tool/rpc/client.py", line 175, in call
+artifact_tool.rpc.client.RemoteError: Element ordering requires an owning element collection.

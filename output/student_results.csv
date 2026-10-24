@@ -1,0 +1,21 @@
+Student_ID,Name,Department,Python,Mathematics,Database,AI,Attendance_Percent,Total_Marks,Average_Marks,Grade,Result
+S001,Aarav Sharma,Computer Engineering,86,78,91,88,92,343,85.75,A,Pass
+S002,Ananya Patel,Information Technology,74,81,77,90,85,322,80.5,B,Pass
+S003,Rohan Deshmukh,Computer Engineering,58,64,61,70,76,253,63.25,C,Pass
+S004,Isha Kulkarni,Electronics,93,89,95,91,97,368,92.0,A,Pass
+S005,Vivaan Joshi,Information Technology,42,55,48,60,68,205,51.25,D,Fail
+S006,Meera Shah,Computer Engineering,81,87,84,79,94,331,82.75,B,Pass
+S007,Aditya More,Mechanical,35,44,39,51,58,169,42.25,D,Fail
+S008,Sara Khan,Electronics,77,73,80,82,88,312,78.0,B,Pass
+S009,Arjun Patil,Mechanical,66,69,63,72,81,270,67.5,C,Pass
+S010,Diya Nair,Information Technology,90,94,88,96,99,368,92.0,A,Pass
+S011,Kabir Singh,Computer Engineering,49,52,46,57,64,204,51.0,D,Fail
+S012,Aditi Rao,Electronics,84,86,82,89,93,341,85.25,A,Pass
+S013,Reyansh Gupta,Mechanical,71,68,74,65,79,278,69.5,C,Pass
+S014,Myra Joshi,Information Technology,61,59,67,73,75,260,65.0,C,Pass
+S015,Ishaan Verma,Computer Engineering,95,92,90,94,98,371,92.75,A,Pass
+S016,Kiara Mehta,Electronics,53,47,56,62,71,218,54.5,D,Fail
+S017,Atharv Pawar,Mechanical,28,38,33,45,49,144,36.0,F,Fail
+S018,Navya Iyer,Information Technology,79,85,81,87,91,332,83.0,B,Pass
+S019,Dhruv Sane,Computer Engineering,68,72,70,66,83,276,69.0,C,Pass
+S020,Tara Banerjee,Electronics,88,91,86,93,96,358,89.5,A,Pass
