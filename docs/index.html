@@ -1,0 +1,426 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudentIQ | Performance Analytics</title>
+<style>
+:root {
+  --bg: #0b1020;
+  --panel: #121a2d;
+  --panel2: #172238;
+  --text: #edf2ff;
+  --muted: #95a3bd;
+  --accent: #a78bfa;
+  --cyan: #67e8f9;
+  --green: #6ee7b7;
+  --red: #fda4af;
+  --border: #29344d;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 5%;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.brand { font-size: 22px; font-weight: 800; letter-spacing: -.5px; }
+.brand span { color: var(--accent); }
+header p, .muted { color: var(--muted); font-size: 13px; }
+.container { max-width: 1450px; margin: auto; padding: 30px 5%; }
+.eyebrow {
+  color: var(--cyan); text-transform: uppercase;
+  font-size: 11px; letter-spacing: 2px; font-weight: 700;
+}
+h1 { font-size: clamp(27px, 4vw, 40px); margin: 10px 0; }
+h2 { font-size: 18px; margin: 0 0 6px; }
+h3 { font-size: 14px; margin: 0 0 18px; }
+p { line-height: 1.6; }
+.intro { color: var(--muted); max-width: 720px; margin-bottom: 25px; }
+.grid { display: grid; gap: 17px; }
+.stats { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.two { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 20px; }
+.panel, .stat {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  padding: 21px;
+  min-width: 0;
+}
+.stat-label { color: var(--muted); font-size: 12px; }
+.stat-value { font-size: 30px; font-weight: 750; margin: 12px 0 6px; }
+.stat-note { font-size: 12px; color: var(--green); }
+.section { margin-top: 32px; }
+.section-heading {
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 12px; flex-wrap: wrap; margin-bottom: 15px;
+}
+.chart-row {
+  display: grid; grid-template-columns: 95px 1fr 45px;
+  gap: 10px; align-items: center; margin: 19px 0;
+  font-size: 12px;
+}
+.track { height: 10px; background: #263149; border-radius: 20px; overflow: hidden; }
+.bar { height: 100%; border-radius: 20px; background: linear-gradient(90deg, #8b5cf6, #67e8f9); }
+.grade-row {
+  display: grid; grid-template-columns: 28px 1fr 35px;
+  gap: 10px; align-items: center; margin: 16px 0; font-size: 13px;
+}
+.grade-row .track { height: 8px; }
+.controls { display: flex; gap: 10px; flex-wrap: wrap; margin: 16px 0; }
+input, select, button {
+  background: var(--panel2); color: var(--text);
+  border: 1px solid var(--border); border-radius: 9px;
+  padding: 11px 13px; font: inherit; font-size: 13px;
+}
+input { flex: 1; min-width: 180px; }
+button { cursor: pointer; }
+button:hover { border-color: var(--accent); }
+.primary { background: #7c3aed; border-color: #7c3aed; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; white-space: nowrap; font-size: 13px; }
+th, td { padding: 14px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+th { color: var(--muted); font-weight: 600; }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: var(--panel2); }
+.pill { padding: 5px 9px; border-radius: 20px; font-size: 11px; display: inline-block; }
+.pass { color: var(--green); background: #12372f; }
+.fail { color: var(--red); background: #42202d; }
+.grade { color: #d8b4fe; background: #32244c; }
+.detail-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.detail-item { background: var(--panel2); border-radius: 10px; padding: 14px; }
+.detail-item small { display: block; color: var(--muted); margin-bottom: 9px; }
+.detail-item strong { font-size: 20px; }
+.subject-chips { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 17px; }
+.chip { border: 1px solid var(--border); border-radius: 8px; padding: 10px; font-size: 12px; }
+footer { border-top: 1px solid var(--border); padding: 25px 5%; color: var(--muted); font-size: 12px; text-align: center; }
+.note { color: var(--muted); font-size: 12px; margin-top: 14px; }
+@media (max-width: 850px) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .two { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .container { padding: 22px 4%; }
+  .stats { gap: 10px; }
+  .stat { padding: 15px; }
+  .stat-value { font-size: 24px; }
+  .detail-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Student<span>IQ</span></div>
+  <div>
+    <strong>Performance Analytics</strong>
+    <p style="margin:5px 0 0">Python · NumPy · Pandas</p>
+  </div>
+</header>
+
+<main class="container">
+  <div class="eyebrow">Academic Insights Dashboard</div>
+  <h1>Student Performance Overview</h1>
+  <p class="intro">
+    Explore student results, compare subject performance, identify learning
+    gaps and understand class-level trends through interactive analytics.
+  </p>
+
+  <section class="grid stats" id="stats"></section>
+
+  <section class="grid two">
+    <div class="panel">
+      <h2>Subject Performance</h2>
+      <p class="muted">Average marks out of 100</p>
+      <div id="subjectChart"></div>
+    </div>
+    <div class="panel">
+      <h2>Grade Distribution</h2>
+      <p class="muted">Number of students in each grade</p>
+      <div id="gradeChart"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-heading">
+      <div>
+        <h2>Student Records</h2>
+        <p class="muted">Select any student to view their performance details.</p>
+      </div>
+      <button class="primary" onclick="exportCSV()">Export CSV ↓</button>
+    </div>
+    <div class="controls">
+      <input id="search" placeholder="Search by name or student ID..." oninput="renderTable()">
+      <select id="department" onchange="renderTable()">
+        <option value="">All departments</option>
+      </select>
+      <select id="resultFilter" onchange="renderTable()">
+        <option value="">All results</option>
+        <option value="Pass">Pass</option>
+        <option value="Fail">Fail</option>
+      </select>
+      <select id="sort" onchange="renderTable()">
+        <option value="name">Sort: Name</option>
+        <option value="average">Sort: Average marks</option>
+        <option value="attendance">Sort: Attendance</option>
+      </select>
+    </div>
+    <div class="panel table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th><th>Student</th><th>Department</th>
+            <th>Average</th><th>Attendance</th><th>Grade</th><th>Result</th>
+          </tr>
+        </thead>
+        <tbody id="studentRows"></tbody>
+      </table>
+      <p class="note" id="rowCount"></p>
+    </div>
+  </section>
+
+  <section class="section panel" id="studentDetails">
+    <h2>Student Details</h2>
+    <p class="muted">Choose a student from the table above.</p>
+    <div id="detailContent"></div>
+  </section>
+
+  <section class="section panel">
+    <h2>About This Project</h2>
+    <p class="muted">
+      StudentIQ is the presentation dashboard for a Student Performance
+      Analytics System developed using Python, NumPy and Pandas. The analysis
+      calculates total and average marks, assigns grades, determines results,
+      and summarizes class and subject performance.
+    </p>
+    <p class="muted">
+      Grading: A ≥ 85, B ≥ 70, C ≥ 55, D ≥ 40, otherwise F.
+      A student passes only when every subject mark is at least 40 and
+      attendance is at least 75%.
+    </p>
+    <p class="note">
+      Demonstration dataset: 20 fictional student records. This is sample
+      data for educational purposes, not real student information.
+    </p>
+    <a href="https://github.com/Pradnya1227/student-performance-analytics"
+       target="_blank" rel="noopener" style="color:var(--cyan)">
+      View Python source code on GitHub ↗
+    </a>
+  </section>
+</main>
+
+<footer>StudentIQ · Student Performance Analytics System · Academic Project</footer>
+
+<script>
+const subjects = ["Python", "Maths", "Database", "AI"];
+
+const students = [
+ ["S001","Aarav Sharma","Computer Engineering",[86,78,91,88],92],
+ ["S002","Ananya Patel","Information Technology",[74,81,77,90],85],
+ ["S003","Rohan Deshmukh","Computer Engineering",[58,64,61,70],76],
+ ["S004","Isha Kulkarni","Electronics",[93,89,95,91],97],
+ ["S005","Vivaan Joshi","Information Technology",[42,55,48,60],68],
+ ["S006","Meera Shah","Computer Engineering",[81,87,84,79],94],
+ ["S007","Aditya More","Mechanical",[35,44,39,51],58],
+ ["S008","Sara Khan","Electronics",[77,73,80,82],88],
+ ["S009","Arjun Patil","Mechanical",[66,69,63,72],81],
+ ["S010","Diya Nair","Information Technology",[90,94,88,96],99],
+ ["S011","Kabir Singh","Computer Engineering",[49,52,46,57],64],
+ ["S012","Aditi Rao","Electronics",[84,86,82,89],93],
+ ["S013","Reyansh Gupta","Mechanical",[71,68,74,65],79],
+ ["S014","Myra Joshi","Information Technology",[61,59,67,73],75],
+ ["S015","Ishaan Verma","Computer Engineering",[95,92,90,94],98],
+ ["S016","Kiara Mehta","Electronics",[53,47,56,62],71],
+ ["S017","Atharv Pawar","Mechanical",[28,38,33,45],49],
+ ["S018","Navya Iyer","Information Technology",[79,85,81,87],91],
+ ["S019","Dhruv Sane","Computer Engineering",[68,72,70,66],83],
+ ["S020","Tara Banerjee","Electronics",[88,91,86,93],96]
+];
+
+function average(marks) {
+  return marks.reduce((sum, mark) => sum + mark, 0) / marks.length;
+}
+function grade(avg) {
+  if (avg >= 85) return "A";
+  if (avg >= 70) return "B";
+  if (avg >= 55) return "C";
+  if (avg >= 40) return "D";
+  return "F";
+}
+function result(student) {
+  const marks = student[3];
+  return marks.every(mark => mark >= 40) && student[4] >= 75
+    ? "Pass" : "Fail";
+}
+function esc(value) {
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;",
+    '"':"&quot;", "'":"&#39;"
+  })[char]);
+}
+function displayAverage(value) {
+  return value.toFixed(1) + "%";
+}
+
+const processed = students.map(student => ({
+  id: student[0], name: student[1], department: student[2],
+  marks: student[3], attendance: student[4],
+  average: average(student[3]),
+  total: student[3].reduce((sum, mark) => sum + mark, 0),
+  grade: grade(average(student[3])),
+  result: result(student)
+}));
+
+function renderStats() {
+  const classAverage = average(processed.map(s => s.average));
+  const passCount = processed.filter(s => s.result === "Pass").length;
+  const topper = [...processed].sort((a,b) => b.average-a.average)[0];
+  const stats = [
+    ["Total Students", processed.length, "Across 4 departments"],
+    ["Class Average", displayAverage(classAverage), "Across all 4 subjects"],
+    ["Pass Rate", (passCount / processed.length * 100).toFixed(1) + "%",
+      passCount + " students passed"],
+    ["Top Performer", topper.name, displayAverage(topper.average) + " average"]
+  ];
+  document.getElementById("stats").innerHTML = stats.map((s,i) => `
+    <div class="stat">
+      <div class="stat-label">${s[0]}</div>
+      <div class="stat-value" style="${i===3?'font-size:21px':''}">${esc(s[1])}</div>
+      <div class="stat-note">${esc(s[2])}</div>
+    </div>`).join("");
+}
+
+function renderSubjectChart() {
+  const means = subjects.map((subject,i) => ({
+    name: subject,
+    value: average(processed.map(s => s.marks[i]))
+  }));
+  document.getElementById("subjectChart").innerHTML = means.map(s => `
+    <div class="chart-row">
+      <span>${s.name}</span>
+      <div class="track"><div class="bar" style="width:${s.value}%"></div></div>
+      <strong>${s.value.toFixed(1)}</strong>
+    </div>`).join("");
+}
+
+function renderGradeChart() {
+  const grades = ["A","B","C","D","F"];
+  const counts = grades.map(g => ({
+    grade: g, count: processed.filter(s => s.grade === g).length
+  }));
+  const max = Math.max(...counts.map(g => g.count), 1);
+  document.getElementById("gradeChart").innerHTML = counts.map(g => `
+    <div class="grade-row">
+      <strong>${g.grade}</strong>
+      <div class="track"><div class="bar" style="width:${g.count/max*100}%"></div></div>
+      <span>${g.count}</span>
+    </div>`).join("");
+}
+
+function setupDepartments() {
+  const departments = [...new Set(processed.map(s => s.department))].sort();
+  document.getElementById("department").innerHTML =
+    '<option value="">All departments</option>' +
+    departments.map(d => `<option value="${esc(d)}">${esc(d)}</option>`).join("");
+}
+
+function renderTable() {
+  const query = document.getElementById("search").value.toLowerCase();
+  const department = document.getElementById("department").value;
+  const resultValue = document.getElementById("resultFilter").value;
+  const sort = document.getElementById("sort").value;
+
+  let filtered = processed.filter(s =>
+    (s.name.toLowerCase().includes(query) || s.id.toLowerCase().includes(query)) &&
+    (!department || s.department === department) &&
+    (!resultValue || s.result === resultValue)
+  );
+
+  filtered.sort((a,b) => {
+    if (sort === "average") return b.average - a.average;
+    if (sort === "attendance") return b.attendance - a.attendance;
+    return a.name.localeCompare(b.name);
+  });
+
+  document.getElementById("studentRows").innerHTML = filtered.map(s => `
+    <tr onclick="showStudent('${s.id}')">
+      <td>${s.id}</td>
+      <td><strong>${esc(s.name)}</strong></td>
+      <td>${esc(s.department)}</td>
+      <td>${displayAverage(s.average)}</td>
+      <td>${s.attendance}%</td>
+      <td><span class="pill grade">${s.grade}</span></td>
+      <td><span class="pill ${s.result==='Pass'?'pass':'fail'}">${s.result}</span></td>
+    </tr>`).join("");
+
+  document.getElementById("rowCount").textContent =
+    `Showing ${filtered.length} of ${processed.length} students`;
+}
+
+function showStudent(id) {
+  const s = processed.find(student => student.id === id);
+  if (!s) return;
+
+  document.getElementById("detailContent").innerHTML = `
+    <h3 style="margin-top:20px">${esc(s.name)} · ${s.id}</h3>
+    <p class="muted">${esc(s.department)}</p>
+    <div class="detail-grid">
+      <div class="detail-item"><small>Total Marks</small><strong>${s.total}/400</strong></div>
+      <div class="detail-item"><small>Average</small><strong>${displayAverage(s.average)}</strong></div>
+      <div class="detail-item"><small>Attendance</small><strong>${s.attendance}%</strong></div>
+      <div class="detail-item"><small>Result</small><strong class="${s.result==='Pass'?'':'fail'}">${s.result}</strong></div>
+    </div>
+    <div class="subject-chips">
+      ${subjects.map((subject,i) => `
+        <div class="chip">${subject}: <strong>${s.marks[i]}/100</strong></div>
+      `).join("")}
+      <div class="chip">Grade: <strong>${s.grade}</strong></div>
+    </div>`;
+  document.getElementById("studentDetails").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function exportCSV() {
+  const query = document.getElementById("search").value.toLowerCase();
+  const department = document.getElementById("department").value;
+  const resultValue = document.getElementById("resultFilter").value;
+  const rows = processed.filter(s =>
+    (s.name.toLowerCase().includes(query) || s.id.toLowerCase().includes(query)) &&
+    (!department || s.department === department) &&
+    (!resultValue || s.result === resultValue)
+  );
+
+  const header = ["ID","Name","Department",...subjects,"Total","Average","Attendance","Grade","Result"];
+  const data = rows.map(s => [
+    s.id,s.name,s.department,...s.marks,s.total,
+    s.average.toFixed(2),s.attendance,s.grade,s.result
+  ]);
+  const csv = [header,...data].map(row =>
+    row.map(value => '"' + String(value).replace(/"/g,'""') + '"').join(",")
+  ).join("\r\n");
+
+  const url = URL.createObjectURL(new Blob(["\uFEFF" + csv], {type:"text/csv;charset=utf-8;"}));
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "student_performance_report.csv";
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+renderStats();
+renderSubjectChart();
+renderGradeChart();
+setupDepartments();
+renderTable();
+showStudent("S015");
+</script>
+</body>
+</html>
